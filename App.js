@@ -18,20 +18,29 @@ export default class App extends React.Component{
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.displayData}>
-          <Text>Click me to dusplay data</Text>
+          <Text>Click me to display data</Text>
         </TouchableOpacity>
       </View>
     );
   }
   saveData(){
-    let user = 'John Doe';
-    AsyncStorage.setItem('user', user);
+    //let user = 'John Doe';
+
+    let obj ={
+      name: 'John Doe',
+      email: 'john@doe.com',
+      city: 'Rio de Janeiro',    
+    }
+   // AsyncStorage.setItem('user', user);
+   AsyncStorage.setItem('user', JSON.stringify(obj));
   }
 
   displayData = async () => {
     try {
        let user = await AsyncStorage.getItem('user');
-       alert(user);
+       let parsed = JSON.parse(user);
+       //alert(user);
+       alert(parsed.email);
 
     } catch (error) {
       alert(error);
